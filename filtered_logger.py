@@ -4,6 +4,8 @@ Module for filtering sensitive information from log messages
 """
 import re
 import logging
+import mysql.connector
+import os
 
 
 # PII fields to be redacted
@@ -45,6 +47,23 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
 
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """
+    Returns a connector to the MySQL database
+    """
+    username = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+    password = os.getenv('PERSONAL_DATA_DB_PASSWORD', 'root')
+    host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+    db_name = os.getenv('PERSONAL_DATA_DB_NAME')
+
+    return mysql.connector.connect(
+        user=username,
+        password=password,
+        host=host,
+        database=db_name
+    )
 
 
 class RedactingFormatter(logging.Formatter):
