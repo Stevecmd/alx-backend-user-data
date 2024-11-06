@@ -48,18 +48,18 @@ print(get_logger.__annotations__.get('return'))
 print("PII_FIELDS: {}".format(len(PII_FIELDS)))
 
 # Database test case
-# db = get_db()
-# cursor = db.cursor()
-# cursor.execute("SELECT COUNT(*) FROM users;")
-# for row in cursor:
-#     print(row[0])
-# cursor.close()
-# db.close()
+db = get_db()
+cursor = db.cursor()
+cursor.execute("SELECT COUNT(*) FROM users;")
+for row in cursor:
+    print(row[0])
+cursor.close()
+db.close()
 
 # Password hashing and validation test case
 password = "MyAmazingPassw0rd"
-# print(hash_password(password))
-# print(hash_password(password))
+print(hash_password(password))
+print(hash_password(password))
 encrypted_password = hash_password(password)
 print(encrypted_password)
 print(is_valid(encrypted_password, password))
