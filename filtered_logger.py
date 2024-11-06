@@ -9,7 +9,8 @@ import os
 
 
 # PII fields to be redacted
-PII_FIELDS = ('email', 'phone', 'ssn', 'password', 'ip')
+# PII_FIELDS = ('email', 'phone', 'ssn', 'password', 'ip')
+PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
 def filter_datum(fields, redaction, message, separator):
@@ -82,3 +83,33 @@ class RedactingFormatter(logging.Formatter):
         record.msg = filter_datum(self.fields, self.REDACTION,
                                   record.getMessage(), self.SEPARATOR)
         return super().format(record)
+
+
+def main():
+    """
+    Main function to retrieve and display filtered user data
+    """
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+
+    logger = get_logger()
+
+    fields = ['name', 'email', 'phone', 'ssn', 'password', 'ip',
+              'last_login', 'user_agent']
+
+    for row in cursor:
+        message_parts = []
+        for i in range(len(fields)):
+            field = fields[i]
+            value = row[i]
+            message_parts.append(f"{field}={value}")
+        message = '; '.join(message_parts)
+        logger.info(message)
+
+    cursor.close()
+    db.close()
+
+
+if __name__ == '__main__':
+    main()
