@@ -2,3 +2,4 @@
 0x01-Basic_authentication/myvenv/*
 __pycache__
 *.pyc
+0x01-Basic_authentication/.db_User.json
