@@ -4,10 +4,42 @@
 from flask import request
 from typing import List, TypeVar
 
+
 class Auth:
+    """
+    Class to manage authentication
+    """
+
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """ Method to check if authentication is required """
-        return False
+        """
+        Method to check if authentication is required
+
+        Args:
+            path (str): the path to check
+            excluded_paths (List[str]):
+                     list of paths excluded from authentication
+
+        Returns:
+            bool: True if authentication is required, False otherwise
+        """
+        if path is None:
+            # If path is None, authentication is required
+            return True
+        if excluded_paths is None or not excluded_paths:
+            # If excluded_paths is empty or None, authentication is required
+            return True
+        # Ensure path ends with a slash for comparison
+        if path[-1] != '/':
+            path += '/'
+        for excluded_path in excluded_paths:
+            if excluded_path[-1] != '/':
+                excluded_path += '/'
+            if path == excluded_path:
+                # If the path is in the excluded paths,
+                # authentication is not required
+                return False
+        # If the path is not in the excluded paths, authentication is required
+        return True
 
     def authorization_header(self, request=None) -> str:
         """ Method to get the authorization header """
