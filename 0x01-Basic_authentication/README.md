@@ -21,10 +21,10 @@ In the `SimpleAPI` folder, you will find a simple API with one model: `User`. St
 ### Setup and start server
 ```sh
 
-bob@dylan:~$ pip3 install -r requirements.txt
+steve@ubuntu:~$ pip3 install -r requirements.txt
 ...
-bob@dylan:~$
-bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
+steve@ubuntu:~$
+steve@ubuntu:~$ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
  * Serving Flask app "app" (lazy loading)
 ...
 
@@ -32,7 +32,7 @@ bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
 ### Use the API (in another tab or in your browser)
 ```sh
 
-bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/status" -vvv
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/status" -vvv
 *   Trying 0.0.0.0...
 * TCP_NODELAY set
 * Connected to 0.0.0.0 (127.0.0.1) port 5000 (#0)
@@ -51,7 +51,7 @@ bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/status" -vvv
 < 
 {"status":"OK"}
 * Closing connection 0
-bob@dylan:~$
+steve@ubuntu:~$
 
 ```
 
@@ -81,7 +81,7 @@ By calling `abort(401)`, the error handler for 401 will be executed.
 In the first terminal:
 ```sh
 
-bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
+steve@ubuntu:~$ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
 
@@ -91,12 +91,12 @@ In a second terminal:
 
 ```sh
 
-bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/unauthorized"
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/unauthorized"
 {
   "error": "Unauthorized"
 }
-bob@dylan:~$
-bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/unauthorized" -vvv
+steve@ubuntu:~$
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/unauthorized" -vvv
 *   Trying 0.0.0.0...
 * TCP_NODELAY set
 * Connected to 0.0.0.0 (127.0.0.1) port 5000 (#0)
@@ -141,7 +141,7 @@ By calling `abort(403)`, the error handler for 403 will be executed.
 In the first terminal:
 ```sh
 
-bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
+steve@ubuntu:~$ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
 
@@ -151,12 +151,12 @@ In a second terminal:
 
 ```sh
 
-bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/forbidden"
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/forbidden"
 {
   "error": "Forbidden"
 }
-bob@dylan:~$
-bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/forbidden" -vvv
+steve@ubuntu:~$
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/forbidden" -vvv
 *   Trying 0.0.0.0...
 * TCP_NODELAY set
 * Connected to 0.0.0.0 (127.0.0.1) port 5000 (#0)
@@ -198,7 +198,7 @@ This class is the template for all authentication system you will implement.
 
 ```sh
 
-bob@dylan:~$ cat main_0.py
+steve@ubuntu:~$ cat main_0.py
 #!/usr/bin/env python3
 """ Main 0
 """
@@ -210,8 +210,8 @@ print(a.require_auth("/api/v1/status/", ["/api/v1/status/"]))
 print(a.authorization_header())
 print(a.current_user())
 
-bob@dylan:~$ 
-bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 ./main_0.py
+steve@ubuntu:~$ 
+steve@ubuntu:~$ API_HOST=0.0.0.0 API_PORT=5000 ./main_0.py
 False
 None
 None
@@ -231,7 +231,7 @@ Update the method `def require_auth(self, path: str, excluded_paths: List[str]) 
 
 ```sh
 
-bob@dylan:~$ cat main_1.py
+steve@ubuntu:~$ cat main_1.py
 #!/usr/bin/env python3
 """ Main 1
 """
@@ -247,8 +247,8 @@ print(a.require_auth("/api/v1/status", ["/api/v1/status/"]))
 print(a.require_auth("/api/v1/users", ["/api/v1/status/"]))
 print(a.require_auth("/api/v1/users", ["/api/v1/status/", "/api/v1/stats"]))
 
-bob@dylan:~$
-bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 ./main_1.py
+steve@ubuntu:~$
+steve@ubuntu:~$ API_HOST=0.0.0.0 API_PORT=5000 ./main_1.py
 True
 True
 True
@@ -289,7 +289,7 @@ Now the biggest piece is the filtering of each request. For that you will use th
 In the first terminal:
 ```sh
 
-bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=auth python3 -m api.v1.app
+steve@ubuntu:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=auth python3 -m api.v1.app
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
 
@@ -299,22 +299,22 @@ In a second terminal:
 
 ```sh
 
-bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/status"
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/status"
 {
   "status": "OK"
 }
-bob@dylan:~$ 
-bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/status/"
+steve@ubuntu:~$ 
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/status/"
 {
   "status": "OK"
 }
-bob@dylan:~$ 
-bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/users"
+steve@ubuntu:~$ 
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/users"
 {
   "error": "Unauthorized"
 }
-bob@dylan:~$
-bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/users" -H "Authorization: Test"
+steve@ubuntu:~$
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/users" -H "Authorization: Test"
 {
   "error": "Forbidden"
 }
@@ -337,28 +337,28 @@ Otherwise, keep the previous mechanism with `auth` an instance of `Auth`.
 In the first terminal:
 
 ```sh
-bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=basic_auth python3 -m api.v1.app
+steve@ubuntu:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=basic_auth python3 -m api.v1.app
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
 ```
 In a second terminal:
 ```sh
-bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/status"
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/status"
 {
   "status": "OK"
 }
-bob@dylan:~$
-bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/status/"
+steve@ubuntu:~$
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/status/"
 {
   "status": "OK"
 }
-bob@dylan:~$
-bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/users"
+steve@ubuntu:~$
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/users"
 {
   "error": "Unauthorized"
 }
-bob@dylan:~$
-bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/users" -H "Authorization: Test"
+steve@ubuntu:~$
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/users" -H "Authorization: Test"
 {
   "error": "Forbidden"
 }
@@ -377,7 +377,7 @@ Add the method `def extract_base64_authorization_header(self, authorization_head
 - You can assume `authorization_header` contains only one `Basic`
 
 ```sh
-bob@dylan:~$ cat main_2.py
+steve@ubuntu:~$ cat main_2.py
 #!/usr/bin/env python3
 """ Main 2
 """
@@ -393,8 +393,8 @@ print(a.extract_base64_authorization_header("Basic SG9sYmVydG9u"))
 print(a.extract_base64_authorization_header("Basic SG9sYmVydG9uIFNjaG9vbA=="))
 print(a.extract_base64_authorization_header("Basic1234"))
 
-bob@dylan:~$
-bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 ./main_2.py
+steve@ubuntu:~$
+steve@ubuntu:~$ API_HOST=0.0.0.0 API_PORT=5000 ./main_2.py
 None
 None
 None
@@ -407,12 +407,238 @@ None
 File: `api/v1/auth/basic_auth.py`
 
 
+7. Basic - Base64 part
 
+Add the method `def extract_base64_authorization_header(self, authorization_header: str) -> str`: in the class `BasicAuth` that returns the Base64 part of the `Authorization` header for a Basic Authentication:
 
+  - Return `None` if `authorization_header` is `None`
+  - Return `None` if `authorization_header` is not a string
+  - Return `None` if `authorization_header` doesn’t start by `Basic` (with a space at the end)
+  - Otherwise, return the value after `Basic` (after the space)
+  - You can assume `authorization_header` contains only one `Basic`
 
+```sh
 
+steve@ubuntu:~$ cat main_2.py
+#!/usr/bin/env python3
+""" Main 2
+"""
+from api.v1.auth.basic_auth import BasicAuth
 
+a = BasicAuth()
 
+print(a.extract_base64_authorization_header(None))
+print(a.extract_base64_authorization_header(89))
+print(a.extract_base64_authorization_header("Holberton School"))
+print(a.extract_base64_authorization_header("Basic Holberton"))
+print(a.extract_base64_authorization_header("Basic SG9sYmVydG9u"))
+print(a.extract_base64_authorization_header("Basic SG9sYmVydG9uIFNjaG9vbA=="))
+print(a.extract_base64_authorization_header("Basic1234"))
 
+steve@ubuntu:~$
+steve@ubuntu:~$ API_HOST=0.0.0.0 API_PORT=5000 ./main_2.py
+None
+None
+None
+Holberton
+SG9sYmVydG9u
+SG9sYmVydG9uIFNjaG9vbA==
+None
+```
 
+File: `api/v1/auth/basic_auth.py`
 
+8. Basic - Base64 decode
+
+Add the method `def decode_base64_authorization_header(self, base64_authorization_header: str) -> str:` in the class `BasicAuth` that returns the decoded value of a Base64 string `base64_authorization_header:`
+
+  - Return `None` if `base64_authorization_header` is `None`
+  - Return `None` if `base64_authorization_header` is not a string
+  - Return `None` if `base64_authorization_header` is not a valid Base64 - you can use `try/except`
+  - Otherwise, return the decoded value as UTF8 string - you can use `decode('utf-8')`
+
+File: `api/v1/auth/basic_auth.py`
+
+9. Basic - User credentials
+
+Add the method `def extract_user_credentials(self, decoded_base64_authorization_header: str) -> (str, str)` in the class `BasicAuth` that returns the user email and password from the Base64 decoded value.
+
+  - This method must return 2 values
+  - Return `None`, `None` if `decoded_base64_authorization_header` is `None`
+  - Return `None`, `None` if `decoded_base64_authorization_header` is not a string
+  - Return `None`, `None` if `decoded_base64_authorization_header` doesn’t contain :
+  - Otherwise, return the user email and the user password - these 2 values must be separated by a :
+  - You can assume `decoded_base64_authorization_header` will contain only one :
+
+```sh
+
+steve@ubuntu:~$ cat main_4.py
+#!/usr/bin/env python3
+""" Main 4
+"""
+from api.v1.auth.basic_auth import BasicAuth
+
+a = BasicAuth()
+
+print(a.extract_user_credentials(None))
+print(a.extract_user_credentials(89))
+print(a.extract_user_credentials("Holberton School"))
+print(a.extract_user_credentials("Holberton:School"))
+print(a.extract_user_credentials("bob@gmail.com:toto1234"))
+
+steve@ubuntu:~$
+steve@ubuntu:~$ API_HOST=0.0.0.0 API_PORT=5000 ./main_4.py
+(None, None)
+(None, None)
+(None, None)
+('Holberton', 'School')
+('bob@gmail.com', 'toto1234')
+
+```
+
+File: `api/v1/auth/basic_auth.py`
+
+10. Basic - User object
+Add the method `def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):` in the class `BasicAuth` that returns the `User` instance based on his email and password.
+
+  - Return `None` if `user_email` is `None` or not a string
+  - Return `None` if `user_pwd` is `None` or not a string
+  - Return `None` if your database (file) doesn’t contain any `User` instance with email equal to `user_email` - you should use the class method `search` of the `User` to lookup the list of users based on their email. Don’t forget to test all cases: “what if there is no user in DB?”, etc.
+  - Return `None` if `user_pwd` is not the password of the `User` instance found - you must use the method `is_valid_password` of `User`
+  - Otherwise, return the `User` instance
+
+```sh
+
+steve@ubuntu:~$ cat main_5.py
+#!/usr/bin/env python3
+""" Main 5
+"""
+import uuid
+from api.v1.auth.basic_auth import BasicAuth
+from models.user import User
+
+""" Create a user test """
+user_email = str(uuid.uuid4())
+user_clear_pwd = str(uuid.uuid4())
+user = User()
+user.email = user_email
+user.first_name = "Bob"
+user.last_name = "Dylan"
+user.password = user_clear_pwd
+print("New user: {}".format(user.display_name()))
+user.save()
+
+""" Retreive this user via the class BasicAuth """
+
+a = BasicAuth()
+
+u = a.user_object_from_credentials(None, None)
+print(u.display_name() if u is not None else "None")
+
+u = a.user_object_from_credentials(89, 98)
+print(u.display_name() if u is not None else "None")
+
+u = a.user_object_from_credentials("email@notfound.com", "pwd")
+print(u.display_name() if u is not None else "None")
+
+u = a.user_object_from_credentials(user_email, "pwd")
+print(u.display_name() if u is not None else "None")
+
+u = a.user_object_from_credentials(user_email, user_clear_pwd)
+print(u.display_name() if u is not None else "None")
+
+steve@ubuntu:~$
+steve@ubuntu:~$ API_HOST=0.0.0.0 API_PORT=5000 ./main_5.py 
+New user: Bob Dylan
+None
+None
+None
+None
+Bob Dylan
+```
+
+File: `api/v1/auth/basic_auth.py`
+
+11. Basic - Overload current_user - and BOOM!
+
+Now, you have all pieces for having a complete Basic authentication.
+
+Add the method `def current_user(self, request=None) -> TypeVar('User')` in the class `BasicAuth` that overloads `Auth` and retrieves the `User` instance for a request:
+
+  - You must use `authorization_header`
+  - You must use `extract_base64_authorization_header`
+  - You must use `decode_base64_authorization_header`
+  - You must use `extract_user_credentials`
+  - You must use `user_object_from_credentials`
+
+With this update, now your API is fully protected by a Basic Authentication. Enjoy!
+
+In the first terminal:
+```sh
+steve@ubuntu:~$ cat main_6.py
+#!/usr/bin/env python3
+""" Main 6
+"""
+import base64
+from api.v1.auth.basic_auth import BasicAuth
+from models.user import User
+
+""" Create a user test """
+user_email = "bob@hbtn.io"
+user_clear_pwd = "H0lbertonSchool98!"
+user = User()
+user.email = user_email
+user.password = user_clear_pwd
+print("New user: {} / {}".format(user.id, user.display_name()))
+user.save()
+
+basic_clear = "{}:{}".format(user_email, user_clear_pwd)
+print("Basic Base64: {}".format(base64.b64encode(basic_clear.encode('utf-8')).decode("utf-8")))
+
+steve@ubuntu:~$
+steve@ubuntu:~$ API_HOST=0.0.0.0 API_PORT=5000 ./main_6.py 
+New user: 9375973a-68c7-46aa-b135-29f79e837495 / bob@hbtn.io
+Basic Base64: Ym9iQGhidG4uaW86SDBsYmVydG9uU2Nob29sOTgh
+steve@ubuntu:~$
+steve@ubuntu:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=basic_auth python3 -m api.v1.app
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+....
+```
+
+In a second terminal:
+```sh
+
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/status"
+{
+  "status": "OK"
+}
+steve@ubuntu:~$ 
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/users"
+{
+  "error": "Unauthorized"
+}
+steve@ubuntu:~$ 
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/users" -H "Authorization: Test"
+{
+  "error": "Forbidden"
+}
+steve@ubuntu:~$ 
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/users" -H "Authorization: Basic test"
+{
+  "error": "Forbidden"
+}
+steve@ubuntu:~$
+steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/users" -H "Authorization: Basic Ym9iQGhidG4uaW86SDBsYmVydG9uU2Nob29sOTgh"
+[
+  {
+    "created_at": "2017-09-25 01:55:17", 
+    "email": "bob@hbtn.io", 
+    "first_name": null, 
+    "id": "9375973a-68c7-46aa-b135-29f79e837495", 
+    "last_name": null, 
+    "updated_at": "2017-09-25 01:55:17"
+  }
+]
+
+```
+File: `api/v1/auth/basic_auth.py`
