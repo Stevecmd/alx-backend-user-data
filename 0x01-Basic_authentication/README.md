@@ -26,10 +26,16 @@ steve@ubuntu:~$ pip3 install -r requirements.txt
 steve@ubuntu:~$
 steve@ubuntu:~$ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
  * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+127.0.0.1 - - [11/Nov/2024 14:04:14] "GET /api/v1/status HTTP/1.1" 200 -
 ...
 
 ```
-### Use the API (in another tab or in your browser)
+### Use the API (in another console tab or in your browser)
 ```sh
 
 steve@ubuntu:~$ curl "http://0.0.0.0:5000/api/v1/status" -vvv
