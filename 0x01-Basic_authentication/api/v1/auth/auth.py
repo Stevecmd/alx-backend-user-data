@@ -32,12 +32,18 @@ class Auth:
         if path[-1] != '/':
             path += '/'
         for excluded_path in excluded_paths:
-            if excluded_path[-1] != '/':
-                excluded_path += '/'
-            if path == excluded_path:
-                # If the path is in the excluded paths,
-                # authentication is not required
-                return False
+            # Ensure excluded_path ends with asterisk for comparison
+            if excluded_path.endswith('*'):
+                if path.startswith(excluded_path[:-1]):
+                    return False
+            else:
+                # Ensure excluded_path ends with a slash for comparison
+                if excluded_path[-1] != '/':
+                    excluded_path += '/'
+                if path == excluded_path:
+                    # If the path is in the excluded paths,
+                    # authentication is not required
+                    return False
         # If the path is not in the excluded paths, authentication is required
         return True
 
