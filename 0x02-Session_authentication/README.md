@@ -16,7 +16,7 @@
 
 ## Tasks
 0. Et moi et moi et moi!
-Copy all your work of the `0x06. Basic authentication` project in this new folder.
+Copy all your work of the `0x01. Basic authentication` project in this new folder.
 
 In this version, you implemented a `Basic authentication` for giving you access to all User endpoints:
 
