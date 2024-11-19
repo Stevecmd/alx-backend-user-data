@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""
+User model
+"""
 from sqlalchemy import Column, Integer, String, Sequence
 from sqlalchemy.ext.declarative import declarative_base
 
