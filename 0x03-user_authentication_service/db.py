@@ -5,6 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 
 from user import Base, User
 
@@ -16,7 +18,8 @@ class DB:
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=True)
+        self._engine = create_engine("sqlite:///a.db",
+                                     echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -42,3 +45,27 @@ class DB:
         self._session.add(user)
         self._session.commit()
         return user
+
+    def find_user_by(self, **kwargs) -> User:
+        """Find a user by arbitrary keyword arguments
+        Args:
+            kwargs: Arbitrary keyword arguments to filter the users table
+        Returns:
+            User: The first User object that matches the filter criteria
+        Raises:
+            NoResultFound: If no user is found
+            InvalidRequestError: If the query is invalid
+        """
+        try:
+            all_users = self._session.query(User)
+            for k, v in kwargs.items():
+                if k not in User.__dict__:
+                    raise InvalidRequestError
+                for usr in all_users:
+                    if usr.__dict__[k] == v:
+                        return usr
+            raise NoResultFound
+        except NoResultFound:
+            raise
+        except InvalidRequestError:
+            raise
