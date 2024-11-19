@@ -5,6 +5,7 @@
 import bcrypt
 from db import DB
 from user import User
+from uuid import uuid4
 from sqlalchemy.orm.exc import NoResultFound
 
 
@@ -30,7 +31,7 @@ def _generate_uuid() -> str:
     Returns:
         str: The string representation of the UUID.
     """
-    return str(uuid4())
+    return str(uuid.uuid4())
 
 
 class Auth:
