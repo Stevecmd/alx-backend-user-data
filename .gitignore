@@ -5,3 +5,4 @@ __pycache__
 0x01-Basic_authentication/.db_User.json
 0x02-Session_authentication/myvenv/*
 0x03-user_authentication_service/myvenv/*
+0x03-user_authentication_service/a.db
