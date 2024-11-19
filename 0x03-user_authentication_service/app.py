@@ -7,7 +7,8 @@ from flask import (
     jsonify,
     request,
     abort,
-    make_response
+    make_response,
+    redirect
 )
 from auth import Auth
 
@@ -73,6 +74,7 @@ def logout():
 
     AUTH.destroy_session(user.id)
     return redirect("/")
+    return response
 
 
 @app.route("/profile", methods=["GET"])
